@@ -1,5 +1,7 @@
 import {useContext} from 'react';
 import Player from "../Player/Player";
+import ResetButton from "../ResetButton";
+import BattleButton from "../BattleButton";
 import UsersContext from "../contexts/UserContext";
 import './styles.css';
 
@@ -15,16 +17,33 @@ const Players = () => {
         setIsShowSecondUserInfo,
         showSecondError,
         showFirstError,
-        onBattle,
         firstRepo,
-        secondRepo
+        secondRepo,
+        showResetButton,
+        battleResult,
+        setFirstTotal,
+        setSecondTotal,
+        setFirstUser,
+        setShowFirstError,
+        setFirstRepo,
+        setSecondUser,
+        setShowSecondError,
+        setSecondRepo,
     } = useContext(UsersContext);
 
     const onReset = (user) => {
         if (user === 'first') {
             setIsShowFirstUserInfo(false);
+            setFirstUser({});
+            setShowFirstError(false);
+            setFirstRepo([]);
+            setFirstTotal();
         } else {
             setIsShowSecondUserInfo(false);
+            setSecondUser({});
+            setShowSecondError(false);
+            setSecondRepo([]);
+            setSecondTotal();
         }
     }
 
@@ -39,6 +58,8 @@ const Players = () => {
                     onReset={() => onReset('first')}
                     showError={showSecondError}
                     userRepo={firstRepo}
+                    battleResult={battleResult.first}
+                    setTotal={setFirstTotal}
                 />
                 <Player 
                     number={2} 
@@ -48,11 +69,14 @@ const Players = () => {
                     onReset={() => onReset('second')}
                     showError={showFirstError}
                     userRepo={secondRepo}
+                    battleResult={battleResult.second}
+                    setTotal={setSecondTotal}
                 />
             </div> 
-            {isShowFirstUserInfo && isShowSecondUserInfo && 
-                <button onClick={onBattle}>Battle!</button>
+            {!showResetButton && isShowFirstUserInfo && isShowSecondUserInfo &&  
+                <BattleButton />
             } 
+            {showResetButton && <ResetButton/>}
         </div> 
     </>
 }

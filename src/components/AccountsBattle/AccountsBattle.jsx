@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Players from "../Players/Players";
 import service from '../../service/users';
 import UserContext from '../contexts/UserContext';
@@ -12,9 +12,14 @@ const AccountsBattle = () => {
     const [username, setUsername] = useState("");
     const [showSecondError, setShowFirstError] = useState(false);
     const [showFirstError, setShowSecondError] = useState(false);
-    const [showButtonBattle, setShowButtonBattle] = useState(false);
+    const [showBattleInfo, setShowBattleInfo] = useState(false);
     const [firstRepo, setFirstRepo] = useState([]);
     const [secondRepo, setSecondRepo] = useState([]);
+    const [showResetButton, setShowResetButton] = useState(false);
+    const [battleResult, setBattleResult] = useState({});
+    const [firstTotal, setFirstTotal] = useState();
+    const [secondTotal, setSecondTotal] = useState();
+
 
     const findFirstUser = async (e) => {
         e.preventDefault();
@@ -41,7 +46,8 @@ const AccountsBattle = () => {
     }
 
     const onBattle = async () => {
-        setShowButtonBattle(true);
+        setShowBattleInfo(true);
+        setShowResetButton(true);
         try {
             const responseForFirst = await service.getUserRepoDetails(firstUser.name);
             const responseForSecond = await service.getUserRepoDetails(secondUser.name);
@@ -51,6 +57,15 @@ const AccountsBattle = () => {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        if(firstTotal && secondTotal){
+            setBattleResult({
+                first: firstTotal>=secondTotal,
+                second: secondTotal>=firstTotal
+            })
+        }
+    }, [firstTotal, secondTotal])
 
     return <> 
         <UserContext.Provider 
@@ -68,9 +83,24 @@ const AccountsBattle = () => {
                 showSecondError,
                 showFirstError,
                 onBattle,
-                showButtonBattle,
                 firstRepo,
-                secondRepo
+                secondRepo,
+                showResetButton, 
+                setShowResetButton,
+                setShowBattleInfo,
+                showBattleInfo,
+                firstTotal,
+                setFirstTotal,
+                secondTotal,
+                setSecondTotal,
+                battleResult,
+                setFirstUser,
+                setShowFirstError,
+                setFirstRepo,
+                setSecondUser,
+                setShowSecondError,
+                setSecondRepo,
+                setBattleResult
             }}
         >
             <div className="wrapper" style={{flexDirection: 'column', alignItems: 'center'}}> 

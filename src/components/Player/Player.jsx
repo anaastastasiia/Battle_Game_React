@@ -64,7 +64,6 @@ const Player = ({number, onSubmit, userInfo, showUser, onReset, showError, userR
                 />
                 {showError && <p className='error'>Username not exist</p>}
             </div>
-           
             <button>Submit</button>
         </form> }   
     </>

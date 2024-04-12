@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import Players from "../Players/Players";
-import service from '../../service/users';
-import UserContext from '../contexts/UserContext';
-import '../styles.css';
+import Players from "../components/Players/Players";
+import service from '../service/users';
+import UserContext from '../components/contexts/UserContext';
 
 const AccountsBattle = () => {
     const [firstUser, setFirstUser] = useState({});
@@ -103,7 +102,7 @@ const AccountsBattle = () => {
                 setBattleResult
             }}
         >
-            <div className="wrapper" style={{flexDirection: 'column', alignItems: 'center'}}> 
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
                 <h1>Let's Get Ready to Rumble</h1>
                 <Players />
             </div> 

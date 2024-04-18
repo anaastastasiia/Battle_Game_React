@@ -1,0 +1,13 @@
+.detailsWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.itemWrapper {
+    display: flex;
+    align-items: center;
+
+    svg {
+        margin-right: 20px;
+    }
+}

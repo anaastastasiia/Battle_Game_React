@@ -1,0 +1,16 @@
+.cartsWrapper {
+    margin: 20px 0;
+}
+
+.infoWrapper {
+    display: flex;
+    align-items: center;
+
+    svg {
+        margin-left: 10px;
+    }
+
+    b {
+        margin: 0 5px;
+    }
+}

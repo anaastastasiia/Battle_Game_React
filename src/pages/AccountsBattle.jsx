@@ -28,7 +28,7 @@ const AccountsBattle = () => {
             setIsShowFirstUserInfo(true);
         } catch (err) {
             setShowFirstError(true);
-            console.log(err);
+            console.error(err);
         }
     }
 

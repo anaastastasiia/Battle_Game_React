@@ -1,23 +1,13 @@
-import { useState, useEffect } from "react";
-import axios from 'axios';
+import { useContext } from 'react';
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import RepositoriesContext from '../contexts/RepositoriesContext';
 
 const LanguagesHeader = () => {
-  const [langs, setLangs] = useState({});
-  const [value, setValue] = useState(0); 
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(`https://api.github.com/repos/microsoft/vscode/languages`);
-      setLangs(data);
-    })();
-  }, []);
-
-  const handleTabChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const {value, handleTabChange, langs} = useContext(RepositoriesContext);
+  console.log('value: ', value);
 
   return (
     <Box sx={{ maxWidth: { xs: 320, sm: 800 }, bgcolor: 'background.paper' }}>
@@ -29,7 +19,7 @@ const LanguagesHeader = () => {
         aria-label="scrollable auto tabs example"
       >
         {Object.keys(langs).map((key, index) => (
-          <Tab label={key} key={index} />
+          <Tab label={key} key={index} value={key}/>
         ))}
       </Tabs>
     </Box>
